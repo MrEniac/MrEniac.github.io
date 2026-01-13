@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>多模态深度学习 | Blog for AI</title><meta name="author" content="Eniac"><meta name="copyright" content="Eniac"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="多模态深度学习网络学习 开始日期：2026-01-12当前目标阶段：入门-&gt;科研-&gt;多模态大模型-&gt;项目学习材料主线：文档-&gt;论文-&gt;项目备注：记录要尽量“可复现”，包含版本、超参、数据集、链接与结论   1. 多模态、跨模态、多任务多模态是多种模态进行处理分析多任务是多个模型同时执行多个任务跨模态是指一个模态中学习到的知识应用在另一个模态的数据上  跨模态是一种多模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多模态深度学习">
+<meta property="og:url" content="https://mreniac.github.io/2026/01/12/%E5%A4%9A%E6%A8%A1%E6%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Blog for AI">
+<meta property="og:description" content="多模态深度学习网络学习 开始日期：2026-01-12当前目标阶段：入门-&gt;科研-&gt;多模态大模型-&gt;项目学习材料主线：文档-&gt;论文-&gt;项目备注：记录要尽量“可复现”，包含版本、超参、数据集、链接与结论   1. 多模态、跨模态、多任务多模态是多种模态进行处理分析多任务是多个模型同时执行多个任务跨模态是指一个模态中学习到的知识应用在另一个模态的数据上  跨模态是一种多模">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mreniac.github.io/img/head.jpg">
+<meta property="article:published_time" content="2026-01-12T03:46:21.000Z">
+<meta property="article:modified_time" content="2026-01-13T13:07:41.304Z">
+<meta property="article:author" content="Eniac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mreniac.github.io/img/head.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "多模态深度学习",
+  "url": "https://mreniac.github.io/2026/01/12/%E5%A4%9A%E6%A8%A1%E6%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/",
+  "image": "https://mreniac.github.io/img/head.jpg",
+  "datePublished": "2026-01-12T03:46:21.000Z",
+  "dateModified": "2026-01-13T13:07:41.304Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eniac",
+      "url": "https://mreniac.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/head.jpg"><link rel="canonical" href="https://mreniac.github.io/2026/01/12/%E5%A4%9A%E6%A8%A1%E6%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4-b1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '多模态深度学习',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/progressive/index.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Blog for AI</span></a><a class="nav-page-title" href="/"><span class="site-name">多模态深度学习</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">多模态深度学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-12T03:46:21.000Z" title="发表于 2026-01-12 11:46:21">2026-01-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-13T13:07:41.304Z" title="更新于 2026-01-13 21:07:41">2026-01-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="多模态深度学习网络学习"><a href="#多模态深度学习网络学习" class="headerlink" title="多模态深度学习网络学习"></a>多模态深度学习网络学习</h1><blockquote>
+<p>开始日期：2026-01-12<br>当前目标阶段：入门-&gt;科研-&gt;多模态大模型-&gt;项目<br>学习材料主线：文档-&gt;论文-&gt;项目<br>备注：记录要尽量“可复现”，包含版本、超参、数据集、链接与结论</p>
+</blockquote>
+<hr>
+<h2 id="1-多模态、跨模态、多任务"><a href="#1-多模态、跨模态、多任务" class="headerlink" title="1. 多模态、跨模态、多任务"></a>1. 多模态、跨模态、多任务</h2><p>多模态是多种模态进行处理分析<br>多任务是多个模型同时执行多个任务<br>跨模态是指一个模态中学习到的知识应用在另一个模态的数据上</p>
+<ul>
+<li>跨模态是一种多模态深度学习方法</li>
+<li>多模态深度学习模型方法:<ol>
+<li>翻译：模式之间的映射关系</li>
+<li>对齐：模态子元素之间的直接关系</li>
+<li>融合：结合多个模态数据进行预测</li>
+<li>协同学习：一种模型中学习到的帮助不同模态上训练的计算模型</li>
+<li>表征：利用多模态之间的互补性来总结多模态数据</li>
+</ol>
+</li>
+<li>多模态深度学习的五个挑战:模态表示、模态传译、模态对齐、模态融合</li>
+</ul>
+<h3 id="1-1-语句模态的表示方法-word-embedding"><a href="#1-1-语句模态的表示方法-word-embedding" class="headerlink" title="1.1 语句模态的表示方法(word-embedding)"></a>1.1 语句模态的表示方法(word-embedding)</h3><ul>
+<li><p>单词模态的独热表示(one-hot)</p>
+</li>
+<li><p>低维空间表示：独热表示的线性变换 </p>
+</li>
+<li><p>词袋模型：只考虑每个词的出现频率，将频率作为特征地图，不考虑文字的顺序和语法结果</p>
+<ul>
+<li>n-gram:可以捕捉语义结构和上下文信息，维度会 迅速增长。将短语或者一个句子视为一个词袋再统计次数，n表示构成词袋的单词个数，对于每个句子按照n个单词对句子进行拆分。bigarm表示n&#x3D;2，trigram表示n&#x3D;3。</li>
+<li>TF-IDF：评估词语对文档中的重要性。<em>如果某个词语在一篇文档中频繁出现，但在其他文档中很少出现，则认为这个词语具有很好的类别区分能力，对文档的区分度高，因此应该给予更高的权重。</em><blockquote>
+<p>TF（词频）表示词语在文档中出现的频率，等于某个词在文档中出现的次数除以总词汇数字。<br>IDF（逆文档频率）如果一个某个词在很多文档中出现，IDF的值会减小，从而减低值的权重<br>最终得到的值是TF与IDF相乘</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>文档词项矩阵（Document-Term Matrix）：统计每个词语在每个文档中出现的次数。（既有词频又考虑了不同文档，但是依赖文档结构）</p>
+<blockquote>
+<p>替代方法：词词矩阵（Term-Term Matrix）：统计词语文本中上下文的频率来理解含义。（有点像qkv?只是最后落到的点不同？）</p>
+</blockquote>
+</li>
+<li><p>单词序列模态的语义空间表示(解决上述方法在维度过高的问题)：</p>
+<ul>
+<li>加权平均语义表示向量</li>
+<li>句子解析树构成矩阵</li>
+<li>深度学习方法：<ol>
+<li>Worf2Vec:训练神经网络分类器预测词的共现（使用上下文窗口来建立每个词的上下文内容，窗口大小确定了上下文范围）<blockquote>
+<ul>
+<li>输入输出使用的都是独热编码，输入词汇输出每个词汇上下文的概率，使用的是softmax损失函数。维度在100-1000维之间，进行分析时可以使用PCA或者t-SNE这样的降维。</li>
+<li>缺点很明显：虽然考虑了上下文但是只考虑了出现的概率没考虑具体的语境和句子的实际含义和具体的语序（输入仅仅为单个的词语）</li>
+</ul>
+</blockquote>
+</li>
+<li>Glove:将使用的上下文窗口更换为全局的词共现矩阵（整个数据集）<blockquote>
+<ul>
+<li>词共现矩阵：就是上文说到的词词矩阵但是把视野放到了整个数据集当中，同样没考虑词序的问题（主语谓语宾语）</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-视频模态的表示方法"><a href="#1-2-视频模态的表示方法" class="headerlink" title="1.2 视频模态的表示方法"></a>1.2 视频模态的表示方法</h3><ul>
+<li>不想记录了，截张图吧<blockquote>
+<p><img src="/media/image.png" alt="图1" title="两种视频卷积神经网络的结构"></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="2-学习路线与里程碑（Roadmap）"><a href="#2-学习路线与里程碑（Roadmap）" class="headerlink" title="2. 学习路线与里程碑（Roadmap）"></a>2. 学习路线与里程碑（Roadmap）</h2><h3 id="2-1-路线图（按阶段）"><a href="#2-1-路线图（按阶段）" class="headerlink" title="2.1 路线图（按阶段）"></a>2.1 路线图（按阶段）</h3><ul>
+<li><p>阶段 A：基础概念与经典结构（预计：__ 周）</p>
+<ul>
+<li><input disabled="" type="checkbox"> 多模态表示学习基础：对齐&#x2F;融合&#x2F;协同</li>
+<li><input disabled="" type="checkbox"> Transformer 基础与跨模态注意力</li>
+<li><input disabled="" type="checkbox"> 对比学习&#x2F;自监督在多模态中的范式</li>
+</ul>
+</li>
+<li><p>阶段 B：论文复现与实验（预计：__ 周）</p>
+<ul>
+<li><input disabled="" type="checkbox"> 选择基线模型：__</li>
+<li><input disabled="" type="checkbox"> 复现论文 1：__（链接）</li>
+<li><input disabled="" type="checkbox"> 复现论文 2：__（链接）</li>
+</ul>
+</li>
+<li><p>阶段 C：项目化&#x2F;论文写作（预计：__ 周）</p>
+<ul>
+<li><input disabled="" type="checkbox"> 数据集清洗与规范化流程</li>
+<li><input disabled="" type="checkbox"> 设计改进点与消融实验</li>
+<li><input disabled="" type="checkbox"> 整理论文结构&#x2F;实验图表</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-里程碑（Milestones）"><a href="#2-2-里程碑（Milestones）" class="headerlink" title="2.2 里程碑（Milestones）"></a>2.2 里程碑（Milestones）</h3><table>
+<thead>
+<tr>
+<th>里程碑</th>
+<th>目标</th>
+<th align="right">截止</th>
+<th>状态</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M1</td>
+<td>跑通一个多模态 baseline</td>
+<td align="right">YYYY-MM-DD</td>
+<td>⬜&#x2F;🟨&#x2F;✅</td>
+<td></td>
+</tr>
+<tr>
+<td>M2</td>
+<td>复现 1 篇论文主结果</td>
+<td align="right">YYYY-MM-DD</td>
+<td>⬜&#x2F;🟨&#x2F;✅</td>
+<td></td>
+</tr>
+<tr>
+<td>M3</td>
+<td>完成消融实验与对比</td>
+<td align="right">YYYY-MM-DD</td>
+<td>⬜&#x2F;🟨&#x2F;✅</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3-周记录（Weekly-Log）"><a href="#3-周记录（Weekly-Log）" class="headerlink" title="3. 周记录（Weekly Log）"></a>3. 周记录（Weekly Log）</h2><blockquote>
+<p>建议：每周一写计划，每天写简短日志，每周末写复盘</p>
+</blockquote>
+<h3 id="第-周（YYYY-MM-DD-YYYY-MM-DD）"><a href="#第-周（YYYY-MM-DD-YYYY-MM-DD）" class="headerlink" title="第 __ 周（YYYY-MM-DD ~ YYYY-MM-DD）"></a>第 __ 周（YYYY-MM-DD ~ YYYY-MM-DD）</h3><h4 id="3-1-本周计划（Plan）"><a href="#3-1-本周计划（Plan）" class="headerlink" title="3.1 本周计划（Plan）"></a>3.1 本周计划（Plan）</h4><ul>
+<li>主题&#x2F;模块：</li>
+<li>预计完成：<ul>
+<li><input disabled="" type="checkbox"> </li>
+<li><input disabled="" type="checkbox"> </li>
+</ul>
+</li>
+<li>预期困难与应对：<ul>
+<li>困难：</li>
+<li>应对策略：</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-每日记录（Daily）"><a href="#3-2-每日记录（Daily）" class="headerlink" title="3.2 每日记录（Daily）"></a>3.2 每日记录（Daily）</h4><p><strong>YYYY-MM-DD（Day __）</strong></p>
+<ul>
+<li>今日学习内容：</li>
+<li>关键概念&#x2F;公式（尽量用你自己的话）：</li>
+<li>阅读材料（论文&#x2F;课程&#x2F;博客）：<ul>
+<li>标题：  </li>
+<li>链接：  </li>
+<li>读到哪里：</li>
+</ul>
+</li>
+<li>代码&#x2F;实验：<ul>
+<li>仓库&#x2F;分支：  </li>
+<li>环境：Python __ &#x2F; PyTorch __ &#x2F; CUDA __  </li>
+<li>运行命令：  </li>
+<li>结果（指标&#x2F;现象）：</li>
+</ul>
+</li>
+<li>问题与卡点：</li>
+<li>明日计划（1-3 条）：</li>
+</ul>
+<p>（按天复制以上块即可）</p>
+<h4 id="3-3-本周复盘（Review）"><a href="#3-3-本周复盘（Review）" class="headerlink" title="3.3 本周复盘（Review）"></a>3.3 本周复盘（Review）</h4><ul>
+<li>✅ 本周完成了什么（可量化）：</li>
+<li>❌ 没完成的原因：</li>
+<li>📌 最重要的收获（3 条以内）：</li>
+<li>🧪 需要补做的实验&#x2F;验证：</li>
+<li>🔁 下周计划调整：</li>
+</ul>
+<hr>
+<h2 id="4-论文阅读卡片（Paper-Cards）"><a href="#4-论文阅读卡片（Paper-Cards）" class="headerlink" title="4. 论文阅读卡片（Paper Cards）"></a>4. 论文阅读卡片（Paper Cards）</h2><blockquote>
+<p>一篇论文建议用 10~20 分钟先写“粗读卡片”，再做精读补全</p>
+</blockquote>
+<h3 id="论文：标题"><a href="#论文：标题" class="headerlink" title="论文：标题"></a>论文：<code>标题</code></h3><ul>
+<li>作者&#x2F;年份：</li>
+<li>领域与任务：例如「V-L 对齐 &#x2F; 多模态分类 &#x2F; 生成 &#x2F; 检索」</li>
+<li>链接：arXiv &#x2F; PDF &#x2F; repo</li>
+<li>一句话贡献（你自己的话）：</li>
+<li>方法核心（结构图&#x2F;关键模块）：</li>
+<li>损失函数与训练策略：</li>
+<li>数据集与指标：</li>
+<li>实验亮点：</li>
+<li>局限性&#x2F;可能失败的场景：</li>
+<li>我能复现什么：</li>
+<li>我能改进什么（与自己课题结合）：</li>
+<li>复现记录（commit &#x2F; log 链接）：</li>
+</ul>
+<hr>
+<h2 id="5-模型与实验记录（Experiments）"><a href="#5-模型与实验记录（Experiments）" class="headerlink" title="5. 模型与实验记录（Experiments）"></a>5. 模型与实验记录（Experiments）</h2><h3 id="5-1-实验设置（固定信息）"><a href="#5-1-实验设置（固定信息）" class="headerlink" title="5.1 实验设置（固定信息）"></a>5.1 实验设置（固定信息）</h3><ul>
+<li>任务定义：</li>
+<li>数据集：名称 &#x2F; 版本 &#x2F; 划分方式 &#x2F; 预处理</li>
+<li>模态：例如 图像+文本 &#x2F; EEG+EMG &#x2F; 音频+视频</li>
+<li>评价指标：  </li>
+<li>硬件：GPU &#x2F; 显存 &#x2F; 训练时长</li>
+<li>代码仓库：  </li>
+<li>随机种子：</li>
+</ul>
+<h3 id="5-2-实验条目（每次实验复制一份）"><a href="#5-2-实验条目（每次实验复制一份）" class="headerlink" title="5.2 实验条目（每次实验复制一份）"></a>5.2 实验条目（每次实验复制一份）</h3><p><strong>实验编号：EXP-YYYYMMDD-__</strong></p>
+<ul>
+<li>目的（要验证什么假设）：</li>
+<li>变量（只改哪些东西）：</li>
+<li>配置：<ul>
+<li>backbone：</li>
+<li>fusion：</li>
+<li>loss：</li>
+<li>lr &#x2F; batch &#x2F; epoch：</li>
+</ul>
+</li>
+<li>结果（表格建议）：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Acc&#x2F;F1</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>mAP</td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>Loss</td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>结论（是否支持假设）：</li>
+<li>下一步动作：</li>
+</ul>
+<hr>
+<h2 id="6-知识点索引（Concept-Index）"><a href="#6-知识点索引（Concept-Index）" class="headerlink" title="6. 知识点索引（Concept Index）"></a>6. 知识点索引（Concept Index）</h2><blockquote>
+<p>把学过的概念按主题维护，方便回忆与查找</p>
+</blockquote>
+<h3 id="6-1-表示-对齐-融合"><a href="#6-1-表示-对齐-融合" class="headerlink" title="6.1 表示&#x2F;对齐&#x2F;融合"></a>6.1 表示&#x2F;对齐&#x2F;融合</h3><ul>
+<li>对齐（Alignment）：  </li>
+<li>融合（Fusion）：早&#x2F;中&#x2F;晚融合  </li>
+<li>协同学习（Co-learning）：</li>
+</ul>
+<h3 id="6-2-常见多模态结构"><a href="#6-2-常见多模态结构" class="headerlink" title="6.2 常见多模态结构"></a>6.2 常见多模态结构</h3><ul>
+<li>Cross-Attention：</li>
+<li>Co-Attention：</li>
+<li>Gated Fusion &#x2F; FiLM：</li>
+<li>Multimodal Transformer：</li>
+</ul>
+<h3 id="6-3-多模态学习范式"><a href="#6-3-多模态学习范式" class="headerlink" title="6.3 多模态学习范式"></a>6.3 多模态学习范式</h3><ul>
+<li>对比学习（CLIP-style）：</li>
+<li>蒸馏（Distillation）：</li>
+<li>自监督（Masked Modeling）：</li>
+</ul>
+<hr>
+<h2 id="7-待办与问题池（Backlog）"><a href="#7-待办与问题池（Backlog）" class="headerlink" title="7. 待办与问题池（Backlog）"></a>7. 待办与问题池（Backlog）</h2><h3 id="7-1-待办（TODO）"><a href="#7-1-待办（TODO）" class="headerlink" title="7.1 待办（TODO）"></a>7.1 待办（TODO）</h3><ul>
+<li><input disabled="" type="checkbox"> </li>
+<li><input disabled="" type="checkbox"> </li>
+<li><input disabled="" type="checkbox"> </li>
+</ul>
+<h3 id="7-2-问题池（Questions）"><a href="#7-2-问题池（Questions）" class="headerlink" title="7.2 问题池（Questions）"></a>7.2 问题池（Questions）</h3><blockquote>
+<p>遇到问题先记下来，集中检索&#x2F;请教&#x2F;实验验证</p>
+</blockquote>
+<p>1.<br>2.<br>3. </p>
+<hr>
+<h2 id="8-资源库（Resources）"><a href="#8-资源库（Resources）" class="headerlink" title="8. 资源库（Resources）"></a>8. 资源库（Resources）</h2><h3 id="8-1-课程-书"><a href="#8-1-课程-书" class="headerlink" title="8.1 课程&#x2F;书"></a>8.1 课程&#x2F;书</h3><ul>
+<li>名称 - 链接 - 学到第几节</li>
+</ul>
+<h3 id="8-2-论文清单（Reading-List）"><a href="#8-2-论文清单（Reading-List）" class="headerlink" title="8.2 论文清单（Reading List）"></a>8.2 论文清单（Reading List）</h3><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>论文</th>
+<th>主题</th>
+<th align="right">优先级</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>⬜&#x2F;🟨&#x2F;✅</td>
+<td></td>
+<td></td>
+<td align="right">1-5</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="8-3-代码与工具"><a href="#8-3-代码与工具" class="headerlink" title="8.3 代码与工具"></a>8.3 代码与工具</h3><ul>
+<li>repo：</li>
+<li>常用脚本：</li>
+<li>评测工具：</li>
+</ul>
+<hr>
+<h2 id="9-输出物（Outputs）"><a href="#9-输出物（Outputs）" class="headerlink" title="9. 输出物（Outputs）"></a>9. 输出物（Outputs）</h2><blockquote>
+<p>强烈建议每周至少一个可展示产出</p>
+</blockquote>
+<ul>
+<li>笔记&#x2F;博客：</li>
+<li>复现报告：</li>
+<li>实验图表：</li>
+<li>周报&#x2F;组会 PPT：</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://mreniac.github.io">Eniac</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://mreniac.github.io/2026/01/12/%E5%A4%9A%E6%A8%A1%E6%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">https://mreniac.github.io/2026/01/12/%E5%A4%9A%E6%A8%A1%E6%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://mreniac.github.io" target="_blank">Blog for AI</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eniac</div><div class="author-info-description">单纯的AI爱好者</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MrEniac"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/MrEniac" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/neslandtwila@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">多模态深度学习网络学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E6%A8%A1%E6%80%81%E3%80%81%E8%B7%A8%E6%A8%A1%E6%80%81%E3%80%81%E5%A4%9A%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.1.</span> <span class="toc-text">1. 多模态、跨模态、多任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%AF%AD%E5%8F%A5%E6%A8%A1%E6%80%81%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95-word-embedding"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 语句模态的表示方法(word-embedding)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%A7%86%E9%A2%91%E6%A8%A1%E6%80%81%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 视频模态的表示方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E4%B8%8E%E9%87%8C%E7%A8%8B%E7%A2%91%EF%BC%88Roadmap%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">2. 学习路线与里程碑（Roadmap）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%88%E6%8C%89%E9%98%B6%E6%AE%B5%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 路线图（按阶段）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%87%8C%E7%A8%8B%E7%A2%91%EF%BC%88Milestones%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 里程碑（Milestones）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%91%A8%E8%AE%B0%E5%BD%95%EF%BC%88Weekly-Log%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">3. 周记录（Weekly Log）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-%E5%91%A8%EF%BC%88YYYY-MM-DD-YYYY-MM-DD%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">第 __ 周（YYYY-MM-DD ~ YYYY-MM-DD）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E6%9C%AC%E5%91%A8%E8%AE%A1%E5%88%92%EF%BC%88Plan%EF%BC%89"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">3.1 本周计划（Plan）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E6%AF%8F%E6%97%A5%E8%AE%B0%E5%BD%95%EF%BC%88Daily%EF%BC%89"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">3.2 每日记录（Daily）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%9C%AC%E5%91%A8%E5%A4%8D%E7%9B%98%EF%BC%88Review%EF%BC%89"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">3.3 本周复盘（Review）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E5%8D%A1%E7%89%87%EF%BC%88Paper-Cards%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">4. 论文阅读卡片（Paper Cards）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%EF%BC%9A%E6%A0%87%E9%A2%98"><span class="toc-number">1.4.1.</span> <span class="toc-text">论文：标题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95%EF%BC%88Experiments%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">5. 模型与实验记录（Experiments）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%EF%BC%88%E5%9B%BA%E5%AE%9A%E4%BF%A1%E6%81%AF%EF%BC%89"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 实验设置（固定信息）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%AE%9E%E9%AA%8C%E6%9D%A1%E7%9B%AE%EF%BC%88%E6%AF%8F%E6%AC%A1%E5%AE%9E%E9%AA%8C%E5%A4%8D%E5%88%B6%E4%B8%80%E4%BB%BD%EF%BC%89"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 实验条目（每次实验复制一份）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%9F%A5%E8%AF%86%E7%82%B9%E7%B4%A2%E5%BC%95%EF%BC%88Concept-Index%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">6. 知识点索引（Concept Index）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E8%A1%A8%E7%A4%BA-%E5%AF%B9%E9%BD%90-%E8%9E%8D%E5%90%88"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 表示&#x2F;对齐&#x2F;融合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E5%B8%B8%E8%A7%81%E5%A4%9A%E6%A8%A1%E6%80%81%E7%BB%93%E6%9E%84"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 常见多模态结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E5%A4%9A%E6%A8%A1%E6%80%81%E5%AD%A6%E4%B9%A0%E8%8C%83%E5%BC%8F"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3 多模态学习范式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%BE%85%E5%8A%9E%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%A0%EF%BC%88Backlog%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">7. 待办与问题池（Backlog）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%BE%85%E5%8A%9E%EF%BC%88TODO%EF%BC%89"><span class="toc-number">1.7.1.</span> <span class="toc-text">7.1 待办（TODO）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E9%97%AE%E9%A2%98%E6%B1%A0%EF%BC%88Questions%EF%BC%89"><span class="toc-number">1.7.2.</span> <span class="toc-text">7.2 问题池（Questions）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E8%B5%84%E6%BA%90%E5%BA%93%EF%BC%88Resources%EF%BC%89"><span class="toc-number">1.8.</span> <span class="toc-text">8. 资源库（Resources）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E8%AF%BE%E7%A8%8B-%E4%B9%A6"><span class="toc-number">1.8.1.</span> <span class="toc-text">8.1 课程&#x2F;书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E8%AE%BA%E6%96%87%E6%B8%85%E5%8D%95%EF%BC%88Reading-List%EF%BC%89"><span class="toc-number">1.8.2.</span> <span class="toc-text">8.2 论文清单（Reading List）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%B7%A5%E5%85%B7"><span class="toc-number">1.8.3.</span> <span class="toc-text">8.3 代码与工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E8%BE%93%E5%87%BA%E7%89%A9%EF%BC%88Outputs%EF%BC%89"><span class="toc-number">1.9.</span> <span class="toc-text">9. 输出物（Outputs）</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/12/%E5%A4%9A%E6%A8%A1%E6%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" title="多模态深度学习">多模态深度学习</a><time datetime="2026-01-12T03:46:21.000Z" title="发表于 2026-01-12 11:46:21">2026-01-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Eniac</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4-b1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4-b1"></script><script src="/js/main.js?v=5.5.4-b1"></script><div class="js-pjax"></div><script src="/progressive/index.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

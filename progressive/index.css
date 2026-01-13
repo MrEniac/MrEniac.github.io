@@ -1,0 +1,31 @@
+/* 移除之前的 #page-header 背景色设置，因为现在是全屏背景 */
+
+.pl-container {
+  position: fixed;      /* 改为固定定位 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -999;        /* 确保置于最底层，充当壁纸 */
+  overflow: hidden;
+}
+
+.pl-img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-position: center;
+  background-size: cover;     /* 保持 cover 以铺满全屏 */
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s;   /* 可以稍微调慢一点，全屏过渡慢点更优雅 */
+}
+
+.pl-visible {
+  opacity: 1;
+}
+
+.pl-blur {
+  filter: blur(50px);
+  transform: scale(1.1);      /* 稍微放大一点，防止模糊边缘出现白边 */
+}
